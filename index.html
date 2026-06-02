@@ -1,0 +1,2667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CR7 — THE LEGACY</title>
+  <meta name="description" content="An agency-level dark editorial portfolio of Cristiano Ronaldo. High-fashion sports journalism meets premium digital experiences. Built with obsession.">
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta property="og:title" content="CR7 — THE LEGACY">
+  <meta property="og:description" content="An agency-level dark editorial portfolio of Cristiano Ronaldo. High-fashion sports journalism meets premium digital experiences.">
+  <meta property="og:type" content="website">
+  
+  <style>
+    /* ==========================================================================
+       1. DESIGN SYSTEM & VARIABLE TOKEN DEFINITIONS
+       ========================================================================== */
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap');
+
+    :root {
+      /* Colors */
+      --bg: #080808;
+      --bg-2: #0d0d0d;
+      --bg-card: #111111;
+      --gold: #c9a227;
+      --gold-muted: rgba(201, 162, 39, 0.15);
+      --ice: #a8d4e6;
+      --ice-muted: rgba(168, 212, 230, 0.12);
+      --white: #f0f0f0;
+      --muted: #777777;
+      --line: rgba(255, 255, 255, 0.07);
+      --border-gold: rgba(201, 162, 39, 0.25);
+      --border-ice: rgba(168, 212, 230, 0.2);
+
+      /* Spacing (8px System) */
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --space-6: 48px;
+      --space-8: 64px;
+      --space-12: 96px;
+      --space-16: 128px;
+      
+      /* Typography */
+      --font-display: 'Cormorant Garamond', serif;
+      --font-athletic: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    /* ==========================================================================
+       2. RESET & BASE LAYOUT HACKS
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      background-color: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-color: var(--bg);
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Fixed SVG Noise Overlay */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.04;
+    }
+
+    /* Typography Hierarchy */
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      font-family: var(--font-body);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ==========================================================================
+       3. NAVIGATION BAR & MOBILE DRAWER OVERLAY
+       ========================================================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 var(--space-8);
+      z-index: 1000;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    /* Scrolled state applied via JS */
+    .navbar.scrolled {
+      background: rgba(8, 8, 8, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .navbar-logo {
+      font-family: var(--font-athletic);
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      list-style: none;
+    }
+
+    .navbar-link {
+      font-family: var(--font-athletic);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      position: relative;
+      padding: var(--space-1) 0;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--gold);
+      transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .navbar-link:hover {
+      color: var(--gold);
+    }
+
+    .navbar-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger Menu Trigger */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 16px;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: var(--white);
+      transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+      background-color: var(--gold);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+      background-color: var(--gold);
+    }
+
+    /* Fullscreen Mobile Overlay Menu */
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(5, 5, 5, 0.98);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-100%);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-4);
+      list-style: none;
+    }
+
+    .mobile-menu-links .navbar-link {
+      font-size: 1.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ==========================================================================
+       4. GLOBAL SECTIONS WORKFLOW
+       ========================================================================== */
+    .scroll-container {
+      width: 100%;
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .section {
+      width: 100%;
+      height: 100vh;
+      scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 0 var(--space-8);
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Global Animation Reveal System */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .visible .reveal-item,
+    .visible .reveal-left,
+    .visible .reveal-right {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    /* ==========================================================================
+       SECTION 1: HERO
+       ========================================================================== */
+    .hero-section {
+      background-color: var(--bg);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Radial glow background */
+    .hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 20%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201, 162, 39, 0.035) 0%, rgba(201, 162, 39, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Split background image bleed layers */
+    .hero-bg-bleed {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to right, var(--bg) 0%, rgba(8, 8, 8, 0.5) 100%);
+      z-index: 0;
+    }
+
+    /* Double Layer Image System */
+    .hero-image-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Layer 1: Color Bleed / Ambient Blur */
+    .hero-image-blur {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center 15%;
+      filter: blur(90px) brightness(0.2) scale(1.3);
+      z-index: 0;
+    }
+
+    /* Layer 2: Main crisp image aligned right */
+    .hero-image-main {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center 15%;
+      mask-image: radial-gradient(circle at 70% 40%, black 20%, rgba(0, 0, 0, 0.3) 60%, transparent 85%);
+      -webkit-mask-image: radial-gradient(circle at 70% 40%, black 20%, rgba(0, 0, 0, 0.3) 60%, transparent 85%);
+      z-index: 2;
+      transform: translateY(180px);
+      opacity: 0;
+      transition: transform 2.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 2.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: 0.6s;
+    }
+
+    .visible .hero-image-main {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Hero Text Left Column */
+    .hero-content {
+      z-index: 3;
+      padding-left: var(--space-8);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    /* Animated Typewriter Label */
+    .hero-label-wrap {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+    }
+
+    .hero-label {
+      font-family: var(--font-athletic);
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      width: 6px;
+      height: 14px;
+      background-color: var(--gold);
+      margin-left: 6px;
+      animation: cursor-blink 1s steps(2, start) infinite;
+    }
+
+    .cap-gold {
+      color: var(--gold);
+      font-size: 1.25em;
+      font-weight: 800;
+      font-family: var(--font-athletic);
+    }
+
+    .word-rest {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: lowercase;
+      letter-spacing: 0.1em;
+      font-family: var(--font-athletic);
+      margin-right: var(--space-1);
+    }
+
+    @keyframes cursor-blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    /* Giant Name Typography & Animation */
+    .hero-name {
+      display: flex;
+      flex-direction: column;
+      margin: var(--space-2) 0;
+    }
+
+    .hero-name-row {
+      display: block;
+      font-family: var(--font-display);
+      font-size: clamp(4.5rem, 8vw, 8.5rem);
+      line-height: 0.85;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      text-transform: capitalize;
+      cursor: default;
+    }
+
+    .hero-name-letter {
+      display: inline-block;
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .hero-name-row:hover .hero-name-letter {
+      animation: letter-wave 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes letter-wave {
+      0% { transform: translateY(0); }
+      30% { transform: translateY(-20px); }
+      60% { transform: translateY(5px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Paragraph details */
+    .hero-intro {
+      max-width: 440px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: var(--space-2);
+    }
+
+    /* Interactive Button */
+    .cta-button {
+      align-self: flex-start;
+      border: 1px solid var(--gold);
+      background: transparent;
+      padding: var(--space-2) var(--space-6);
+      color: var(--gold);
+      font-family: var(--font-athletic);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      transition: color 0.4s ease;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--gold);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+      transform: translateY(0);
+    }
+
+    .cta-button:hover {
+      color: var(--bg);
+    }
+
+    .cta-button:hover::before {
+      transform: translateY(-100%);
+    }
+
+    /* Delay values for enter animation */
+    .hero-content .reveal-right:nth-child(1) { transition-delay: 0.1s; }
+    .hero-content .reveal-item:nth-child(2) { transition-delay: 0.3s; }
+    .hero-content .reveal-left:nth-child(3) { transition-delay: 0.5s; }
+    .hero-content .reveal-item:nth-child(4) { transition-delay: 0.7s; }
+
+    /* Placeholder styles matching custom request */
+    .placeholder-box {
+      border: 1px dashed var(--border-gold);
+      background: rgba(201, 162, 39, 0.03);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .placeholder-label {
+      font-family: var(--font-athletic);
+      color: var(--gold);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       SECTION 2: ABOUT
+       ========================================================================== */
+    .about-section {
+      background-color: #0a0a0a;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Giant faint Watermark "7" */
+    .about-watermark {
+      position: absolute;
+      bottom: -50px;
+      right: 5%;
+      font-family: var(--font-athletic);
+      font-size: 38vw;
+      font-weight: 800;
+      color: rgba(201, 162, 39, 0.032);
+      line-height: 1;
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+    }
+
+    /* Side Accent line */
+    .about-accent-line {
+      position: absolute;
+      left: var(--space-4);
+      top: 30%;
+      width: 2px;
+      height: 35%;
+      background-color: var(--gold);
+      opacity: 0.8;
+    }
+
+    .about-left {
+      padding-left: var(--space-12);
+      padding-right: var(--space-6);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .editorial-label {
+      font-family: var(--font-athletic);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .about-left h2 {
+      font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+      margin-bottom: var(--space-2);
+      text-transform: capitalize;
+    }
+
+    .about-paragraph {
+      margin-bottom: var(--space-2);
+      font-size: 0.95rem;
+      color: #999999;
+      max-width: 580px;
+    }
+
+    .personal-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-athletic);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: var(--space-3);
+    }
+
+    .strip-dot {
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    .about-right {
+      z-index: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-right: var(--space-8);
+    }
+
+    /* Image overlap */
+    .about-portrait-placeholder {
+      width: 280px;
+      height: 380px;
+      margin-left: -80px;
+      z-index: 2;
+      align-self: flex-start;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Stat card styling */
+    .about-stat-card {
+      background-color: var(--bg-card);
+      border-left: 3px solid var(--gold);
+      padding: var(--space-3) var(--space-4);
+      width: 260px;
+      position: absolute;
+      bottom: -30px;
+      left: 10px;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-number {
+      font-family: var(--font-athletic);
+      font-size: 2.2rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+
+    /* Pull Quote floating */
+    .about-pull-quote {
+      position: absolute;
+      top: -20px;
+      right: 0;
+      max-width: 240px;
+      z-index: 1;
+      cursor: default;
+    }
+
+    .pull-quote-text {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.4;
+      position: relative;
+    }
+
+    .pull-quote-text::before {
+      content: '“';
+      font-family: var(--font-display);
+      font-size: 6rem;
+      color: var(--gold-muted);
+      position: absolute;
+      left: -40px;
+      top: -40px;
+      pointer-events: none;
+    }
+
+    /* Animation delays for About left */
+    .about-left .reveal-item:nth-child(1) { transition-delay: 0.1s; }
+    .about-left .reveal-item:nth-child(2) { transition-delay: 0.25s; }
+    .about-left .reveal-item:nth-child(3) { transition-delay: 0.4s; }
+    .about-left .reveal-item:nth-child(4) { transition-delay: 0.55s; }
+    .about-left .reveal-item:nth-child(5) { transition-delay: 0.7s; }
+
+    /* ==========================================================================
+       SECTION 3: SKILLS
+       ========================================================================== */
+    .skills-section {
+      background-color: var(--bg);
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Faint Watermark */
+    .skills-watermark {
+      position: absolute;
+      bottom: var(--space-4);
+      right: var(--space-8);
+      font-family: var(--font-athletic);
+      font-size: 8rem;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.012);
+      pointer-events: none;
+      z-index: 0;
+      letter-spacing: 0.1em;
+    }
+
+    .skills-left {
+      padding-left: var(--space-12);
+      z-index: 1;
+    }
+
+    .skills-left h2 {
+      font-size: clamp(3.5rem, 5.5vw, 6rem);
+      margin-bottom: var(--space-3);
+      text-transform: capitalize;
+    }
+
+    .skills-divider {
+      width: 60px;
+      height: 1px;
+      background-color: var(--ice);
+      margin-top: var(--space-2);
+    }
+
+    .skills-right {
+      padding-right: var(--space-12);
+      padding-left: var(--space-4);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4) var(--space-6);
+      z-index: 1;
+    }
+
+    .skill-card {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: var(--space-2);
+      position: relative;
+    }
+
+    .skill-name-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: var(--space-1);
+    }
+
+    .skill-name {
+      font-family: var(--font-athletic);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+
+    .skill-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Custom subtle line indicator */
+    .skill-line-bar {
+      width: 100%;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.03);
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      overflow: hidden;
+    }
+
+    .skill-line-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--ice);
+      transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: 0.4s;
+    }
+
+    .visible .skill-line-fill {
+      width: var(--progress-pct);
+    }
+
+    /* Stagger items from sides */
+    .skill-card:nth-child(even) { transform: translateX(20px); opacity: 0; }
+    .skill-card:nth-child(odd) { transform: translateX(-20px); opacity: 0; }
+
+    .visible .skill-card {
+      transform: translateX(0);
+      opacity: 1;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .skill-card:nth-child(1) { transition-delay: 0.1s; }
+    .skill-card:nth-child(2) { transition-delay: 0.2s; }
+    .skill-card:nth-child(3) { transition-delay: 0.3s; }
+    .skill-card:nth-child(4) { transition-delay: 0.4s; }
+    .skill-card:nth-child(5) { transition-delay: 0.5s; }
+    .skill-card:nth-child(6) { transition-delay: 0.6s; }
+    .skill-card:nth-child(7) { transition-delay: 0.7s; }
+    .skill-card:nth-child(8) { transition-delay: 0.8s; }
+
+    /* ==========================================================================
+       SECTION 4: SELECTED PERFORMANCES (PROJECTS)
+       ========================================================================== */
+    .projects-section {
+      background-color: #0d0d0d;
+      height: auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: var(--space-12) var(--space-8) var(--space-8) var(--space-8);
+      scroll-snap-align: start;
+      overflow-y: visible;
+    }
+
+    .projects-header {
+      width: 100%;
+      margin-bottom: var(--space-6);
+      padding-left: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .projects-header h2 {
+      font-size: clamp(3rem, 5vw, 5rem);
+      color: var(--white);
+    }
+
+    .projects-header p {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .projects-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    /* Horizontal Newspaper Spread Cards */
+    .project-card {
+      width: 100%;
+      background-color: var(--bg-card);
+      border: 1px solid var(--line);
+      padding: var(--space-4);
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: var(--space-6);
+      align-items: center;
+      transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .project-card.image-left {
+      grid-template-columns: 0.7fr 1.3fr;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-gold);
+      box-shadow: 0 10px 30px rgba(201, 162, 39, 0.03);
+      transform: scale(1.01);
+    }
+
+    .project-left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .project-tag {
+      font-family: var(--font-athletic);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .project-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .project-desc {
+      font-size: 0.95rem;
+      color: #999999;
+      line-height: 1.7;
+    }
+
+    .project-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-2);
+      border-top: 1px solid var(--line);
+      padding-top: var(--space-2);
+      margin-top: var(--space-2);
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-family: var(--font-athletic);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .meta-val {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--white);
+      margin-top: 2px;
+    }
+
+    .project-media-wrap {
+      width: 100%;
+      height: 220px;
+    }
+
+    /* Alternate order in rows */
+    .project-card.image-left .project-media-wrap {
+      order: -1;
+    }
+
+    /* Project reveal delays */
+    .projects-container .reveal-item:nth-child(1) { transition-delay: 0.1s; }
+    .projects-container .reveal-item:nth-child(2) { transition-delay: 0.3s; }
+    .projects-container .reveal-item:nth-child(3) { transition-delay: 0.5s; }
+
+    /* ==========================================================================
+       SECTION 5: WHAT HE OFFERS (SERVICES)
+       ========================================================================== */
+    .services-section {
+      background-color: var(--bg);
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      align-items: center;
+      position: relative;
+    }
+
+    .services-left {
+      padding-left: var(--space-12);
+      z-index: 1;
+    }
+
+    .services-left h2 {
+      font-size: clamp(3.5rem, 5.5vw, 6rem);
+      text-transform: capitalize;
+    }
+
+    .services-right {
+      padding-right: var(--space-12);
+      padding-left: var(--space-4);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      z-index: 1;
+    }
+
+    /* Reframed bespoke service spreads */
+    .service-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--line);
+      border-top: 2px solid var(--ice);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .service-card:hover {
+      background-color: var(--ice-muted);
+      border-color: var(--ice);
+      transform: translateY(-5px);
+    }
+
+    .service-title {
+      font-family: var(--font-athletic);
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--white);
+    }
+
+    .service-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .service-for {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--ice);
+      margin-top: auto;
+      padding-top: var(--space-2);
+    }
+
+    .services-right .reveal-item:nth-child(1) { transition-delay: 0.1s; }
+    .services-right .reveal-item:nth-child(2) { transition-delay: 0.25s; }
+    .services-right .reveal-item:nth-child(3) { transition-delay: 0.4s; }
+    .services-right .reveal-item:nth-child(4) { transition-delay: 0.55s; }
+
+    /* ==========================================================================
+       SECTION 6: A CAREER IN HEADLINES (ACHIEVEMENTS)
+       ========================================================================== */
+    .achievements-section {
+      background-color: #0a0a0a;
+      height: auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--space-12) 0;
+      scroll-snap-align: start;
+      overflow-y: visible;
+      position: relative;
+    }
+
+    .achievements-header {
+      width: 100%;
+      text-align: center;
+      margin-bottom: var(--space-8);
+      padding: 0 var(--space-4);
+    }
+
+    .achievements-header h2 {
+      font-size: clamp(3rem, 5vw, 5rem);
+      text-transform: capitalize;
+    }
+
+    /* Vertical Timeline Spacing */
+    .timeline-container {
+      width: 100%;
+      max-width: 900px;
+      position: relative;
+      padding: var(--space-4) 0;
+    }
+
+    /* Dynamic growing timeline line */
+    .timeline-line {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background-color: var(--line);
+      z-index: 1;
+    }
+
+    .timeline-progress-line {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 0%; /* Drawn in JS via Scroll Observer */
+      background-color: var(--gold);
+      z-index: 2;
+    }
+
+    .timeline-node {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      position: relative;
+      margin-bottom: var(--space-8);
+      z-index: 3;
+    }
+
+    .timeline-node:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-point {
+      position: absolute;
+      left: 50%;
+      top: 10px;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      background-color: var(--bg);
+      border: 3px solid var(--line);
+      border-radius: 50%;
+      z-index: 4;
+      transition: border-color 0.4s ease, transform 0.4s ease;
+    }
+
+    .timeline-node.passed .timeline-point {
+      border-color: var(--gold);
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    .timeline-content-wrap {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 0 var(--space-6);
+    }
+
+    .timeline-node:nth-child(odd) .timeline-content-wrap {
+      grid-column: 1;
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .timeline-node:nth-child(even) .timeline-content-wrap {
+      grid-column: 2;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .timeline-year {
+      font-family: var(--font-athletic);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--line);
+      line-height: 1;
+      transition: color 0.5s ease;
+    }
+
+    .timeline-node.passed .timeline-year {
+      color: var(--gold);
+    }
+
+    .timeline-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-top: var(--space-1);
+    }
+
+    .timeline-context {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Node entry animations */
+    .timeline-node {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .timeline-node.passed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       SECTION 7: TESTIMONIALS
+       ========================================================================== */
+    .testimonials-section {
+      background-color: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Giant Faint Quote Watermark */
+    .testimonials-watermark {
+      position: absolute;
+      font-family: var(--font-athletic);
+      font-size: 24rem;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.015);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .testimonials-slider {
+      max-width: 840px;
+      width: 100%;
+      padding: 0 var(--space-8);
+      position: relative;
+      height: 250px;
+      z-index: 1;
+    }
+
+    .testimonial-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .testimonial-slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .testimonial-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: var(--space-4);
+    }
+
+    .testimonial-attribution {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .testimonial-attribution::before {
+      content: '—';
+      color: var(--gold);
+    }
+
+    /* Custom Indicators */
+    .slider-indicators {
+      display: flex;
+      gap: var(--space-2);
+      z-index: 2;
+      margin-top: var(--space-4);
+    }
+
+    .indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--line);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.4s ease;
+    }
+
+    .indicator-dot.active {
+      background-color: var(--gold);
+    }
+
+    /* ==========================================================================
+       SECTION 8: EDITORIAL CONTACT
+       ========================================================================== */
+    .contact-section {
+      background-color: #0a0a0a;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: center;
+      position: relative;
+    }
+
+    .contact-left {
+      padding-left: var(--space-12);
+      padding-right: var(--space-4);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .contact-left h2 {
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      text-transform: capitalize;
+    }
+
+    .contact-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 380px;
+      line-height: 1.6;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+    }
+
+    .contact-email {
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      color: var(--ice);
+      position: relative;
+      align-self: flex-start;
+    }
+
+    .contact-email::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--ice);
+      transition: transform 0.3s ease;
+      transform-origin: right;
+      transform: scaleX(0);
+    }
+
+    .contact-email:hover::after {
+      transform-origin: left;
+      transform: scaleX(1);
+    }
+
+    .contact-phone {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .contact-loc {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Social Strip */
+    .social-strip {
+      display: flex;
+      gap: var(--space-3);
+      list-style: none;
+      margin-top: var(--space-2);
+    }
+
+    .social-link {
+      font-family: var(--font-athletic);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .social-link:hover {
+      color: var(--gold);
+    }
+
+    .contact-right {
+      padding-right: var(--space-12);
+      padding-left: var(--space-6);
+      z-index: 1;
+    }
+
+    /* Custom high fashion floating form inputs */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .form-group {
+      position: relative;
+      width: 100%;
+    }
+
+    .form-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border-gold);
+      padding: var(--space-2) 0;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--white);
+      outline: none;
+      transition: border-bottom-color 0.4s ease;
+    }
+
+    .form-input:focus {
+      border-bottom-color: var(--gold);
+    }
+
+    .form-label {
+      position: absolute;
+      left: 0;
+      top: var(--space-2);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--muted);
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), font-size 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: left top;
+    }
+
+    /* Floating label effects */
+    .form-input:focus ~ .form-label,
+    .form-input:not(:placeholder-shown) ~ .form-label {
+      transform: translateY(-24px);
+      font-size: 0.8rem;
+      color: var(--gold);
+    }
+
+    textarea.form-input {
+      resize: none;
+      height: 90px;
+    }
+
+    /* Submit */
+    .form-submit-btn {
+      align-self: flex-start;
+      border: 1px solid var(--gold);
+      background: transparent;
+      padding: var(--space-2) var(--space-6);
+      color: var(--gold);
+      font-family: var(--font-athletic);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      transition: color 0.4s ease;
+      margin-top: var(--space-2);
+    }
+
+    .form-submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--gold);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+      transform: translateY(0);
+    }
+
+    .form-submit-btn:hover {
+      color: var(--bg);
+    }
+
+    .form-submit-btn:hover::before {
+      transform: translateY(-100%);
+    }
+
+    /* Delays contact */
+    .contact-left .reveal-item:nth-child(1) { transition-delay: 0.1s; }
+    .contact-left .reveal-item:nth-child(2) { transition-delay: 0.25s; }
+    .contact-left .reveal-item:nth-child(3) { transition-delay: 0.4s; }
+    .contact-left .reveal-item:nth-child(4) { transition-delay: 0.55s; }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .footer {
+      width: 100%;
+      height: 120px;
+      background-color: #050505;
+      border-top: 1px solid var(--line);
+      padding: 0 var(--space-8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      position: relative;
+    }
+
+    .footer-left {
+      font-family: var(--font-athletic);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-center {
+      display: flex;
+      gap: var(--space-3);
+      list-style: none;
+    }
+
+    .footer-link {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--white);
+    }
+
+    .footer-right {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ==========================================================================
+       5. ACCESSIBILITY & PREFERS REDUCED MOTION
+       ========================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-delay: 0s !important;
+        animation-duration: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0s !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-item, .reveal-left, .reveal-right, .skill-card, .timeline-node {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .hero-image-main {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .skill-line-fill {
+        width: var(--progress-pct) !important;
+      }
+    }
+
+    /* ==========================================================================
+       6. MOBILE RESPONSIVE MEDIA QUERIES
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .navbar {
+        padding: 0 var(--space-4);
+      }
+      .hero-section {
+        grid-template-columns: 1fr;
+        padding-top: 100px;
+        height: auto;
+        min-height: 100vh;
+        scroll-snap-align: none;
+      }
+      .hero-bg-bleed {
+        width: 100%;
+        height: 50%;
+        bottom: 0;
+        top: auto;
+        background: linear-gradient(to top, var(--bg) 0%, rgba(8, 8, 8, 0.3) 100%);
+      }
+      .hero-image-container {
+        width: 100%;
+        height: 50%;
+        bottom: 0;
+        top: auto;
+      }
+      .hero-content {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+        padding-bottom: 250px;
+      }
+      .hero-image-main {
+        background-position: center 5%;
+        mask-image: linear-gradient(to top, black 30%, transparent 95%);
+        -webkit-mask-image: linear-gradient(to top, black 30%, transparent 95%);
+      }
+
+      .about-section {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100vh;
+        padding: var(--space-12) var(--space-4);
+        scroll-snap-align: none;
+      }
+      .about-left {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+      }
+      .about-right {
+        padding-right: 0;
+        margin-top: var(--space-8);
+        height: 480px;
+        width: 100%;
+      }
+      .about-portrait-placeholder {
+        margin-left: 0;
+        align-self: center;
+      }
+      .about-stat-card {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -20px;
+      }
+      .about-pull-quote {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-top: var(--space-6);
+        max-width: 100%;
+        padding: 0 var(--space-4);
+      }
+
+      .skills-section {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100vh;
+        padding: var(--space-12) var(--space-4);
+        scroll-snap-align: none;
+      }
+      .skills-left {
+        padding-left: var(--space-4);
+        margin-bottom: var(--space-6);
+      }
+      .skills-right {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+        grid-template-columns: 1fr;
+      }
+
+      .projects-section {
+        padding: var(--space-12) var(--space-4) var(--space-4) var(--space-4);
+      }
+      .project-card, .project-card.image-left {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+      .project-card .project-media-wrap, .project-card.image-left .project-media-wrap {
+        order: -1;
+      }
+
+      .services-section {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100vh;
+        padding: var(--space-12) var(--space-4);
+        scroll-snap-align: none;
+      }
+      .services-left {
+        padding-left: var(--space-4);
+        margin-bottom: var(--space-6);
+      }
+      .services-right {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+        grid-template-columns: 1fr;
+      }
+
+      .achievements-section {
+        padding: var(--space-12) var(--space-4);
+      }
+      .timeline-line, .timeline-progress-line {
+        left: 20px;
+        transform: none;
+      }
+      .timeline-node {
+        grid-template-columns: 1fr;
+        margin-bottom: var(--space-6);
+      }
+      .timeline-point {
+        left: 20px;
+        transform: translateY(-50%);
+      }
+      .timeline-node.passed .timeline-point {
+        transform: translateY(-50%) scale(1.2);
+      }
+      .timeline-content-wrap {
+        padding-left: var(--space-8);
+        padding-right: 0;
+      }
+      .timeline-node:nth-child(odd) .timeline-content-wrap,
+      .timeline-node:nth-child(even) .timeline-content-wrap {
+        grid-column: 1;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .testimonials-section {
+        padding: var(--space-12) var(--space-4);
+      }
+      .testimonials-slider {
+        padding: 0;
+        height: 320px;
+      }
+
+      .contact-section {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100vh;
+        padding: var(--space-12) var(--space-4);
+        scroll-snap-align: none;
+      }
+      .contact-left {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+        margin-bottom: var(--space-6);
+      }
+      .contact-right {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+      }
+
+      .footer {
+        flex-direction: column;
+        height: auto;
+        gap: var(--space-2);
+        padding: var(--space-4);
+        text-align: center;
+      }
+      .footer-center {
+        margin: var(--space-1) 0;
+      }
+
+      /* Disable snapped height sections on mobile */
+      .section {
+        height: auto;
+        min-height: 100vh;
+        scroll-snap-align: none;
+      }
+      .scroll-container {
+        scroll-snap-type: none;
+        height: auto;
+        overflow-y: visible;
+      }
+      html {
+        scroll-snap-type: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-menu {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background SVG Noise Overlay -->
+  <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+  </svg>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="mainHeader">
+    <div class="navbar-logo">CR7</div>
+    <ul class="navbar-menu">
+      <li><a href="#home" class="navbar-link">Home</a></li>
+      <li><a href="#about" class="navbar-link">About</a></li>
+      <li><a href="#skills" class="navbar-link">Skills</a></li>
+      <li><a href="#projects" class="navbar-link">Projects</a></li>
+      <li><a href="#services" class="navbar-link">Services</a></li>
+      <li><a href="#achievements" class="navbar-link">Achievements</a></li>
+      <li><a href="#testimonials" class="navbar-link">Testimonials</a></li>
+      <li><a href="#contact" class="navbar-link">Contact</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Toggle Navigation" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Overlay Drawer -->
+  <div class="mobile-overlay" id="mobileMenu">
+    <ul class="mobile-menu-links">
+      <li><a href="#home" class="navbar-link mobile-link">Home</a></li>
+      <li><a href="#about" class="navbar-link mobile-link">About</a></li>
+      <li><a href="#skills" class="navbar-link mobile-link">Skills</a></li>
+      <li><a href="#projects" class="navbar-link mobile-link">Projects</a></li>
+      <li><a href="#services" class="navbar-link mobile-link">Services</a></li>
+      <li><a href="#achievements" class="navbar-link mobile-link">Achievements</a></li>
+      <li><a href="#testimonials" class="navbar-link mobile-link">Testimonials</a></li>
+      <li><a href="#contact" class="navbar-link mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <main class="scroll-container">
+
+    <!-- ==========================================================================
+         SECTION 1: HERO
+         ========================================================================== */ -->
+    <section id="home" class="section hero-section">
+      <div class="hero-glow"></div>
+      
+      <!-- Double Layer Portrait Container -->
+      <div class="hero-image-container">
+        <!-- Layer 1 Blur Bleed Background -->
+        <div class="hero-image-blur" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=1200');"></div>
+        <div class="hero-bg-bleed"></div>
+        <!-- Layer 2 Foreground Main Face Masked -->
+        <div class="hero-image-main" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=1200');"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-label-wrap reveal-right">
+          <div class="hero-label" id="typewriterWrap">
+            <span id="typewriterText"></span><span class="typewriter-cursor"></span>
+          </div>
+        </div>
+        
+        <h1 class="hero-name reveal-item">
+          <span class="hero-name-row" id="row1">
+            <span class="hero-name-letter">C</span><span class="hero-name-letter">r</span><span class="hero-name-letter">i</span><span class="hero-name-letter">s</span><span class="hero-name-letter">t</span><span class="hero-name-letter">i</span><span class="hero-name-letter">a</span><span class="hero-name-letter">n</span><span class="hero-name-letter">o</span>
+          </span>
+          <span class="hero-name-row" id="row2">
+            <span class="hero-name-letter">R</span><span class="hero-name-letter">o</span><span class="hero-name-letter">n</span><span class="hero-name-letter">a</span><span class="hero-name-letter">l</span><span class="hero-name-letter">d</span><span class="hero-name-letter">o</span>
+          </span>
+        </h1>
+        
+        <p class="hero-intro reveal-left">
+          Seven Ballon d'Or. 900+ goals. A career that rewrote the laws of football.
+        </p>
+        
+        <button class="cta-button reveal-item" onclick="document.querySelector('#about').scrollIntoView();">
+          Explore The Legacy
+        </button>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 2: ABOUT
+         ========================================================================== */ -->
+    <section id="about" class="section about-section">
+      <div class="about-watermark">7</div>
+      <div class="about-accent-line"></div>
+
+      <div class="about-left">
+        <span class="editorial-label reveal-item">The Man Behind The Myth</span>
+        <h2 class="reveal-item">Born to run.<br>Built to last.</h2>
+        
+        <p class="about-paragraph reveal-item">
+          Cristiano Ronaldo dos Santos Aveiro grew up on the steep streets of Funchal, Madeira — a small island where the Atlantic wind hits harder than most defenders he would later face. Fourth child of a cook and a gardener. No silver spoon. Just hunger.
+        </p>
+        <p class="about-paragraph reveal-item">
+          At 11, he left home for Lisbon with a single bag and a single goal. He cried himself to sleep in the Sporting CP academy dorms for weeks. Then he stopped crying and started working. Before anyone knew his name, he was already in the gym at midnight.
+        </p>
+        <p class="about-paragraph reveal-item">
+          He cares about one thing: being the best version of himself, every single day. Not for validation. Not for records. Because anything less feels like waste.
+        </p>
+        <p class="about-paragraph reveal-item">
+          Most athletes have talent. A few have discipline. Almost none have both plus the psychological obsession to outwork everyone in the building — including themselves from yesterday.
+        </p>
+        
+        <div class="personal-strip reveal-item">
+          <span>Born: Feb 5, 1985</span>
+          <span class="strip-dot">·</span>
+          <span>Madeira, Portugal</span>
+          <span class="strip-dot">·</span>
+          <span>Father of 4</span>
+          <span class="strip-dot">·</span>
+          <span>CR7 Museum, Funchal</span>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <!-- Editorial overlap portrait image box placeholder -->
+        <div class="placeholder-box about-portrait-placeholder reveal-right">
+          <span class="placeholder-label">[ Portrait ]</span>
+        </div>
+
+        <!-- Custom Counter widget -->
+        <div class="about-stat-card reveal-item">
+          <div class="stat-row">
+            <span class="stat-number" data-target="900">0</span>
+            <span class="stat-label">900+ Goals Scored</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-number" data-target="5">0</span>
+            <span class="stat-label">5 Champions Leagues</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-number" data-target="7">0</span>
+            <span class="stat-label">7 Ballon d'Or Trophies</span>
+          </div>
+        </div>
+
+        <!-- Floating Typography pull quote -->
+        <div class="about-pull-quote reveal-left">
+          <div class="pull-quote-text">
+            I am not a perfectionist, but I like to feel that things are done well.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 3: SKILLS
+         ========================================================================== */ -->
+    <section id="skills" class="section skills-section">
+      <div class="skills-watermark">SKILLS</div>
+      
+      <div class="skills-left">
+        <h2 class="reveal-left">What he<br>brings to<br>the pitch.</h2>
+        <div class="skills-divider reveal-item"></div>
+      </div>
+
+      <div class="skills-right">
+        <!-- Skill 1 -->
+        <div class="skill-card" style="--progress-pct: 99%;">
+          <div class="skill-name-wrap">
+            <span class="skill-name">Finishing</span>
+          </div>
+          <p class="skill-desc">Clinical in both feet, headers, long range. Conversion rate defies physics.</p>
+          <div class="skill-line-bar"><div class="skill-line-fill"></div></div>
+        </div>
+
+        <!-- Skill 2 -->
+        <div class="skill-card" style="--progress-pct: 98%;">
+          <div class="skill-name-wrap">
+            <span class="skill-name">Athleticism</span>
+          </div>
+          <p class="skill-desc">Peak physical condition maintained into his late 30s through obsessive discipline.</p>
+          <div class="skill-line-bar"><div class="skill-line-fill"></div></div>
+        </div>
+
+        <!-- Skill 3 -->
+        <div class="skill-card" style="--progress-pct: 97%;">
+          <div class="skill-name-wrap">
+            <span class="skill-name">Leadership</span>
+          </div>
+          <p class="skill-desc">Captain of Portugal. Carried clubs through elimination rounds on will alone.</p>
+          <div class="skill-line-bar"><div class="skill-line-fill"></div></div>
+        </div>
+
+        <!-- Skill 4 -->
+        <div class="skill-card" style="--progress-pct: 96%;">
+          <div class="skill-name-wrap">
+            <span class="skill-name">Positioning</span>
+          </div>
+          <p class="skill-desc">Reads space before the play develops. Always in the right place.</p>
+          <div class="skill-line-bar"><div class="skill-line-fill"></div></div>
+        </div>
+
+        <!-- Skill 5 -->
+        <div class="skill-card" style="--progress-pct: 95%;">
+          <div class="skill-name-wrap">
+            <span class="skill-name">Set Pieces</span>
+          </div>
+          <p class="skill-desc">Free kick specialist. Knuckleball technique feared by every goalkeeper.</p>
+          <div class="skill-line-bar"><div class="skill-line-fill"></div></div>
+        </div>
+
+        <!-- Skill 6 -->
+        <div class="skill-card" style="--progress-pct: 99%;">
+          <div class="skill-name-wrap">
+            <span class="skill-name">Mental Strength</span>
+          </div>
+          <p class="skill-desc">Performs at highest level under maximum pressure, consistently.</p>
+          <div class="skill-line-bar"><div class="skill-line-fill"></div></div>
+        </div>
+
+        <!-- Skill 7 -->
+        <div class="skill-card" style="--progress-pct: 94%;">
+          <div class="skill-name-wrap">
+            <span class="skill-name">Pace & Power</span>
+          </div>
+          <p class="skill-desc">Combination of sprint speed and physical strength rarely seen together.</p>
+          <div class="skill-line-bar"><div class="skill-line-fill"></div></div>
+        </div>
+
+        <!-- Skill 8 -->
+        <div class="skill-card" style="--progress-pct: 98%;">
+          <div class="skill-name-wrap">
+            <span class="skill-name">Aerial Ability</span>
+          </div>
+          <p class="skill-desc">Highest recorded jump among outfield players. 78cm vertical leap.</p>
+          <div class="skill-line-bar"><div class="skill-line-fill"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 4: SELECTED PERFORMANCES (PROJECTS)
+         ========================================================================== */ -->
+    <section id="projects" class="projects-section">
+      <div class="projects-header reveal-left">
+        <h2>Selected Performances</h2>
+        <p>Not highlights. Evidence.</p>
+      </div>
+
+      <div class="projects-container">
+        <!-- Card 1 -->
+        <div class="project-card reveal-item">
+          <div class="project-left">
+            <span class="project-tag">UCL Final · 2008</span>
+            <h3 class="project-title">Moscow. The Night He Became Immortal.</h3>
+            <p class="project-desc">
+              Manchester United vs Chelsea. Penalties in the rain. Ronaldo steps up — no hesitation, no fear. The goal in normal time was poetry. The penalty was ice. United won. He was 23.
+            </p>
+            <div class="project-meta-grid">
+              <div class="meta-item">
+                <span class="meta-label">Role</span>
+                <span class="meta-val">Captain's Performance</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Result</span>
+                <span class="meta-val">UCL Champion · MOTM</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Weaponry</span>
+                <span class="meta-val">Right Foot · Pure Will</span>
+              </div>
+            </div>
+          </div>
+          <div class="placeholder-box project-media-wrap">
+            <span class="placeholder-label">[ Moscow Final Photo ]</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="project-card image-left reveal-item">
+          <div class="project-left">
+            <span class="project-tag">Euros · 2016</span>
+            <h3 class="project-title">The Coach on the Touchline.</h3>
+            <p class="project-desc">
+              He lasted 25 minutes before his knee gave out. So he coached from the sideline for 95 more — injured, limping, screaming instructions. Portugal won Euro 2016 without him playing. He made sure of it anyway.
+            </p>
+            <div class="project-meta-grid">
+              <div class="meta-item">
+                <span class="meta-label">Role</span>
+                <span class="meta-val">Leader Beyond the Pitch</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Result</span>
+                <span class="meta-val">European Champion</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Weaponry</span>
+                <span class="meta-val">Leadership · Sacrifice</span>
+              </div>
+            </div>
+          </div>
+          <div class="placeholder-box project-media-wrap">
+            <span class="placeholder-label">[ Euro 2016 Final Photo ]</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="project-card reveal-item">
+          <div class="project-left">
+            <span class="project-tag">UCL · 2017</span>
+            <h3 class="project-title">The Hat-Trick at the Bernabéu.</h3>
+            <p class="project-desc">
+              Atletico Madrid. Away leg. 3-0 down on aggregate going in. He scored 3. Real Madrid went through. The shirt came off. The stadium stood still. That was the moment the rivalry ended.
+            </p>
+            <div class="project-meta-grid">
+              <div class="meta-item">
+                <span class="meta-label">Role</span>
+                <span class="meta-val">Match Winner</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Result</span>
+                <span class="meta-val">Standing Ovation</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Weaponry</span>
+                <span class="meta-val">Pressure Handling</span>
+              </div>
+            </div>
+          </div>
+          <div class="placeholder-box project-media-wrap">
+            <span class="placeholder-label">[ Bernabéu Hat-Trick Photo ]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 5: SERVICES (PITCH VALUE)
+         ========================================================================== */ -->
+    <section id="services" class="section services-section">
+      <div class="services-left">
+        <h2 class="reveal-left">The full<br>package.</h2>
+      </div>
+
+      <div class="services-right">
+        <!-- Service 1 -->
+        <div class="service-card reveal-item">
+          <h3 class="service-title">Goalscoring</h3>
+          <p class="service-desc">Clinical finishing across all positions in and around the box.</p>
+          <span class="service-for">For: Teams lacking a reliable final third presence.</span>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card reveal-item">
+          <h3 class="service-title">Leadership</h3>
+          <p class="service-desc">On-pitch organization, pre-match intensity setting, young player elevation.</p>
+          <span class="service-for">For: Squads needing a winning culture installed fast.</span>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card reveal-item">
+          <h3 class="service-title">Set Pieces</h3>
+          <p class="service-desc">Free kicks, corners, and penalty expertise.</p>
+          <span class="service-for">For: Teams that struggle to convert dead ball situations.</span>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-card reveal-item">
+          <h3 class="service-title">Physical Standard</h3>
+          <p class="service-desc">Training intensity and physical benchmark that raises the entire squad.</p>
+          <span class="service-for">For: Any club wanting to raise their baseline.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 6: A CAREER IN HEADLINES (ACHIEVEMENTS)
+         ========================================================================== */ -->
+    <section id="achievements" class="achievements-section">
+      <div class="achievements-header reveal-item">
+        <h2>A Career in Headlines</h2>
+      </div>
+
+      <div class="timeline-container">
+        <!-- Growing Gold Line -->
+        <div class="timeline-line"></div>
+        <div class="timeline-progress-line" id="timelineProgress"></div>
+
+        <!-- Node 1 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2004</span>
+            <h3 class="timeline-title">First Champions League Appearance</h3>
+            <span class="timeline-context">Manchester United</span>
+          </div>
+        </div>
+
+        <!-- Node 2 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2008</span>
+            <h3 class="timeline-title">UCL Champion + Ballon d'Or #1</h3>
+            <span class="timeline-context">Manchester United</span>
+          </div>
+        </div>
+
+        <!-- Node 3 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2011</span>
+            <h3 class="timeline-title">Ballon d'Or #2</h3>
+            <span class="timeline-context">Real Madrid</span>
+          </div>
+        </div>
+
+        <!-- Node 4 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2012</span>
+            <h3 class="timeline-title">Ballon d'Or #3</h3>
+            <span class="timeline-context">Real Madrid</span>
+          </div>
+        </div>
+
+        <!-- Node 5 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2013</span>
+            <h3 class="timeline-title">Record 17 UCL Goals in Single Season</h3>
+            <span class="timeline-context">Real Madrid</span>
+          </div>
+        </div>
+
+        <!-- Node 6 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2014</span>
+            <h3 class="timeline-title">Ballon d'Or #4</h3>
+            <span class="timeline-context">Real Madrid</span>
+          </div>
+        </div>
+
+        <!-- Node 7 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2016</span>
+            <h3 class="timeline-title">Euro Champion + Ballon d'Or #5</h3>
+            <span class="timeline-context">Portugal</span>
+          </div>
+        </div>
+
+        <!-- Node 8 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2017</span>
+            <h3 class="timeline-title">Champions League Winner</h3>
+            <span class="timeline-context">Real Madrid</span>
+          </div>
+        </div>
+
+        <!-- Node 9 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2018</span>
+            <h3 class="timeline-title">UCL Champion + Ballon d'Or #6</h3>
+            <span class="timeline-context">Real Madrid</span>
+          </div>
+        </div>
+
+        <!-- Node 10 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2022</span>
+            <h3 class="timeline-title">Final Major World Cup Appearance</h3>
+            <span class="timeline-context">Portugal</span>
+          </div>
+        </div>
+
+        <!-- Node 11 -->
+        <div class="timeline-node">
+          <div class="timeline-point"></div>
+          <div class="timeline-content-wrap">
+            <span class="timeline-year">2023</span>
+            <h3 class="timeline-title">Ballon d'Or #7 Contender</h3>
+            <span class="timeline-context">Al Nassr</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 7: TESTIMONIALS
+         ========================================================================== */ -->
+    <section id="testimonials" class="section testimonials-section">
+      <div class="testimonials-watermark">QUOTES</div>
+      
+      <div class="testimonials-slider">
+        <!-- Quote 1 -->
+        <div class="testimonial-slide active" data-index="0">
+          <blockquote class="testimonial-quote">
+            In 20 years of football, I have never seen a player with such drive. He made the rest of us feel we were not working hard enough.
+          </blockquote>
+          <div class="testimonial-attribution">Sir Alex Ferguson, Manager, Manchester United</div>
+        </div>
+
+        <!-- Quote 2 -->
+        <div class="testimonial-slide" data-index="1">
+          <blockquote class="testimonial-quote">
+            Playing against him is the worst 90 minutes of your career. Playing alongside him is the education of a lifetime.
+          </blockquote>
+          <div class="testimonial-attribution">Luka Modrić, Teammate, Real Madrid</div>
+        </div>
+
+        <!-- Quote 3 -->
+        <div class="testimonial-slide" data-index="2">
+          <blockquote class="testimonial-quote">
+            He is not the most talented player I have coached. He is the most dedicated. And in the end, dedication won.
+          </blockquote>
+          <div class="testimonial-attribution">Zinedine Zidane, Manager, Real Madrid</div>
+        </div>
+      </div>
+
+      <!-- Slideshow Dot Indicators -->
+      <div class="slider-indicators">
+        <button class="indicator-dot active" data-slide="0" aria-label="Go to slide 1"></button>
+        <button class="indicator-dot" data-slide="1" aria-label="Go to slide 2"></button>
+        <button class="indicator-dot" data-slide="2" aria-label="Go to slide 3"></button>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 8: EDITORIAL CONTACT
+         ========================================================================== */ -->
+    <section id="contact" class="section contact-section">
+      <div class="contact-left">
+        <h2 class="reveal-item">Let's talk<br>about winning.</h2>
+        <p class="contact-sub reveal-item">
+          For partnerships, collaborations, or just to discuss the beautiful game.
+        </p>
+        
+        <div class="contact-details reveal-item">
+          <a href="mailto:cr7@ronaldo.com" class="contact-email">cr7@ronaldo.com</a>
+          <span class="contact-phone">+351 000 000 000</span>
+          <span class="contact-loc">Madeira, Portugal · Available Globally</span>
+        </div>
+
+        <ul class="social-strip reveal-item">
+          <li><a href="#" class="social-link">Instagram</a></li>
+          <li><a href="#" class="social-link">Twitter</a></li>
+          <li><a href="#" class="social-link">LinkedIn</a></li>
+        </ul>
+      </div>
+
+      <div class="contact-right">
+        <!-- Floating Label Form -->
+        <form class="contact-form reveal-right" onsubmit="event.preventDefault(); alert('Message sent successfully.'); this.reset();">
+          <div class="form-group">
+            <input type="text" id="form-name" class="form-input" placeholder=" " required autocomplete="name">
+            <label for="form-name" class="form-label">Name</label>
+          </div>
+
+          <div class="form-group">
+            <input type="email" id="form-email" class="form-input" placeholder=" " required autocomplete="email">
+            <label for="form-email" class="form-label">Email</label>
+          </div>
+
+          <div class="form-group">
+            <textarea id="form-message" class="form-input" placeholder=" " required></textarea>
+            <label for="form-message" class="form-label">Message</label>
+          </div>
+
+          <button type="submit" class="form-submit-btn">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FOOTER
+         ========================================================================== */ -->
+    <footer class="footer">
+      <div class="footer-left">CR7 · Cristiano Ronaldo</div>
+      <ul class="footer-center">
+        <li><a href="#home" class="footer-link">Home</a></li>
+        <li><a href="#about" class="footer-link">About</a></li>
+        <li><a href="#projects" class="footer-link">Projects</a></li>
+        <li><a href="#contact" class="footer-link">Contact</a></li>
+      </ul>
+      <div class="footer-right">© 2024 · Built with obsession.</div>
+    </footer>
+
+  </main>
+
+  <!-- ==========================================================================
+       VANILLA INTERACTION SCRIPT ENGINE
+       ========================================================================== */ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      /* ==========================================
+         1. FIXED HEADER BLUR MECHANISM & SMOOTH LINKS
+         ========================================== */
+      const header = document.getElementById('mainHeader');
+      const scrollContainer = document.querySelector('.scroll-container');
+
+      function handleScroll() {
+        const scrollTop = scrollContainer.scrollTop;
+        if (scrollTop > 80) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+
+      // Track scroll on desktop scroll-container AND window (for mobile fallback)
+      scrollContainer.addEventListener('scroll', handleScroll);
+      window.addEventListener('scroll', handleScroll);
+
+      /* ==========================================
+         2. MOBILE MENU INTERACTION MECHANICS
+         ========================================== */
+      const hamburger = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      function toggleMobileMenu() {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+      }
+
+      hamburger.addEventListener('click', toggleMobileMenu);
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('active');
+        });
+      });
+
+      /* ==========================================
+         3. HERO TYPEWRITER SCRIBE CYCLER
+         ========================================== */
+      const typewriterLabel = document.getElementById('typewriterText');
+      const wordsToCycle = [
+        "Footballer", 
+        "Beast Goalscorer", 
+        "Greatest Of All Time"
+      ];
+      let activeWordIndex = 0;
+      let activeCharIndex = 0;
+      let isDeleting = false;
+      let typingDelay = 120;
+
+      function formatGoat(text) {
+        // Special styled formatter for "Greatest Of All Time"
+        if (text === "Greatest Of All Time") {
+          return `<span class="cap-gold">G</span>reatest <span class="cap-gold">O</span>f <span class="cap-gold">A</span>ll <span class="cap-gold">T</span>ime`;
+        }
+        // Sub-text replacements for normal words as character segments write
+        let formatted = '';
+        const words = text.split(' ');
+        words.forEach((w, idx) => {
+          if (w.length > 0) {
+            const first = w.charAt(0);
+            const rest = w.substring(1);
+            formatted += `<span class="cap-gold">${first}</span>`;
+            if (rest.length > 0) {
+              formatted += `<span class="word-rest">${rest}</span>`;
+            } else {
+              formatted += `<span class="word-rest">&nbsp;</span>`;
+            }
+          }
+        });
+        return formatted;
+      }
+
+      function cycleTypewriter() {
+        const fullWord = wordsToCycle[activeWordIndex];
+        let currentSubstring = '';
+
+        if (isDeleting) {
+          currentSubstring = fullWord.substring(0, activeCharIndex - 1);
+          activeCharIndex--;
+          typingDelay = 40; // delete faster
+        } else {
+          currentSubstring = fullWord.substring(0, activeCharIndex + 1);
+          activeCharIndex++;
+          typingDelay = 100; // standard typing speed
+        }
+
+        // Apply styled custom markup format
+        typewriterLabel.innerHTML = formatGoat(currentSubstring);
+
+        if (!isDeleting && activeCharIndex === fullWord.length) {
+          // Pause at fully typed word
+          isDeleting = true;
+          typingDelay = 2200; // rest at fully typed state
+        } else if (isDeleting && activeCharIndex === 0) {
+          isDeleting = false;
+          // Increment word pointer
+          activeWordIndex = (activeWordIndex + 1) % wordsToCycle.length;
+          typingDelay = 400; // wait before writing next
+        }
+
+        setTimeout(cycleTypewriter, typingDelay);
+      }
+
+      // Initialize hero typing cycles
+      setTimeout(cycleTypewriter, 1000);
+
+      /* ==========================================
+         4. INTERSECTION OBSERVER ANIMATION ENGINE
+         ========================================== */
+      const observedSections = document.querySelectorAll('.section, .projects-section, .achievements-section');
+      
+      const revealObserverOptions = {
+        threshold: 0.12,
+        root: null
+      };
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            
+            // Handle counters inside about section specifically
+            if (entry.target.id === 'about') {
+              triggerCounterWidget();
+            }
+
+            // Highlighting corresponding nav-links
+            updateNavActiveHighlight(entry.target.id);
+          }
+        });
+      }, revealObserverOptions);
+
+      observedSections.forEach(section => {
+        revealObserver.observe(section);
+      });
+
+      // Track menu highlighting
+      const navLinks = document.querySelectorAll('.navbar-link');
+      function updateNavActiveHighlight(activeSectionId) {
+        navLinks.forEach(link => {
+          const targetHref = link.getAttribute('href');
+          if (targetHref === `#${activeSectionId}`) {
+            link.style.color = 'var(--gold)';
+          } else {
+            link.style.color = '';
+          }
+        });
+      }
+
+      /* ==========================================
+         5. ANIMATED STATISTICS COUNTER WIDGET
+         ========================================== */
+      let statsAnimated = false;
+      function triggerCounterWidget() {
+        if (statsAnimated) return;
+        statsAnimated = true;
+
+        const countElements = document.querySelectorAll('.stat-number');
+        countElements.forEach(elem => {
+          const maxTarget = parseInt(elem.getAttribute('data-target'), 10);
+          const duration = 2200; // total animation time in ms
+          const frameRate = 1000 / 60; // 60 FPS
+          const totalFrames = duration / frameRate;
+          const stepValue = maxTarget / totalFrames;
+          let currentVal = 0;
+          let frame = 0;
+
+          function updateCounter() {
+            frame++;
+            currentVal += stepValue;
+            if (frame >= totalFrames) {
+              elem.textContent = maxTarget + (maxTarget === 900 ? '+' : '');
+            } else {
+              elem.textContent = Math.floor(currentVal);
+              requestAnimationFrame(updateCounter);
+            }
+          }
+          updateCounter();
+        });
+      }
+
+      /* ==========================================
+         6. TIMELINE SCROLL PATH DRAWING MECHANIC
+         ========================================== */
+      const progressLine = document.getElementById('timelineProgress');
+      const timelineNodes = document.querySelectorAll('.timeline-node');
+      const achievementsSection = document.getElementById('achievements');
+
+      function calculateTimelineDraw() {
+        if (!achievementsSection.classList.contains('visible')) return;
+
+        const sectionTop = achievementsSection.getBoundingClientRect().top + scrollContainer.scrollTop;
+        const sectionHeight = achievementsSection.offsetHeight;
+        const containerScroll = scrollContainer.scrollTop;
+        
+        // Find how far we are down the achievements section
+        const scrollDistance = containerScroll - sectionTop + (window.innerHeight / 2.5);
+        let progressPercent = (scrollDistance / (sectionHeight - window.innerHeight / 2)) * 100;
+        
+        // Boundaries
+        progressPercent = Math.min(Math.max(progressPercent, 0), 100);
+        progressLine.style.height = progressPercent + '%';
+
+        // Stagger pass nodes trigger
+        timelineNodes.forEach(node => {
+          const nodeTop = node.getBoundingClientRect().top;
+          // Trigger when node reaches 65% height of the screen
+          if (nodeTop < window.innerHeight * 0.7) {
+            node.classList.add('passed');
+          } else {
+            node.classList.remove('passed');
+          }
+        });
+      }
+
+      // Track progress on scrolling the main body
+      scrollContainer.addEventListener('scroll', calculateTimelineDraw);
+      window.addEventListener('scroll', calculateTimelineDraw);
+
+      /* ==========================================
+         7. AUTORUN TESTIMONIALS SLIDER
+         ========================================== */
+      const slides = document.querySelectorAll('.testimonial-slide');
+      const dots = document.querySelectorAll('.indicator-dot');
+      let activeSlideIndex = 0;
+      let slideInterval = setInterval(nextSlide, 5000);
+
+      function showSlide(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+        activeSlideIndex = index;
+      }
+
+      function nextSlide() {
+        const nextIndex = (activeSlideIndex + 1) % slides.length;
+        showSlide(nextIndex);
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          clearInterval(slideInterval);
+          const clickedIndex = parseInt(dot.getAttribute('data-slide'), 10);
+          showSlide(clickedIndex);
+          // Restart interval after interaction
+          slideInterval = setInterval(nextSlide, 5000);
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>
